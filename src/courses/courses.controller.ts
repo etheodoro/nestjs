@@ -1,6 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { get } from 'http';
-import path from 'path';
+import { stringify } from 'querystring';
 
 @Controller('courses')
 export class CoursesController {
@@ -9,12 +9,34 @@ export class CoursesController {
     findAll() {
 
         let listaCursos: { id: number, name: string }[] = [
-            { "id": 0, "name": "Java" },
-            { "id": 1, "name": "Javascript" },
-            { "id": 2, "name": "Php" }
+            { "id": 1, "name": "Java" },
+            { "id": 2, "name": "Javascript" },
+            { "id": 3, "name": "Php" }
         ];        
 
         return listaCursos;        
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+
+        let retorno: string; 
+
+        retorno =  'Curso não encontrado';
+
+        let listaCursos: { id: number, name: string }[] = [
+            { "id": 1, "name": "Java" },
+            { "id": 2, "name": "Javascript" },
+            { "id": 3, "name": "Php" }
+        ];        
+
+        listaCursos.forEach(item => {
+            if (String(item.id) === id) {
+                retorno = item.name;      
+            } 
+        });
+
+        return retorno;
     }
 
 }
