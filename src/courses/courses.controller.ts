@@ -1,6 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { get } from 'http';
-import { stringify } from 'querystring';
 
 @Controller('courses')
 export class CoursesController {
@@ -38,5 +37,13 @@ export class CoursesController {
 
         return retorno;
     }
+
+    @Post()
+    create(@Body() body) {
+        
+        console.info(body);
+        return body;
+    }
+
 
 }
