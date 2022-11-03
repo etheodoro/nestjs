@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Course } from 'src/courses/entities/course.entity';
 
 @Injectable()
@@ -15,14 +15,11 @@ export class CourseService {
     }
 
     findOne(id: string){
-        
-        let course: Course = this.courses.find((c: Course) => c.id === Number(id));
-
-        if ( course == null) {
-            throw new BadRequestException('Nenhum curso encontrado para o id: ' + id);
-        } else {
-            return course;
+        const course: Course = this.courses.find((c: Course) => c.id === Number(id));
+        if (!course) {
+            throw new HttpException('Nenhum curso encontrado para o id: ' + id, HttpStatus.NOT_FOUND);
         }
+        return this.courses;
     }
 
     create(courseDTO: any) {
@@ -32,14 +29,20 @@ export class CourseService {
 
     update(id: string, courseDTO: any) {
         const indexCourse = this.courses.findIndex((c: Course) => c.id === Number(id));
-        this.courses[indexCourse] = courseDTO;        
+        if (indexCourse > 0) {
+            this.courses[indexCourse] = courseDTO;
+        } else {
+            throw new HttpException('Nenhum curso encontrado para o id: ' + id, HttpStatus.NOT_FOUND);
+        }        
     }
 
     remove(id: string) {
         const indexCourse = this.courses.findIndex((c: Course) => c.id === Number(id));
          if (indexCourse > 0) {
             this.courses.splice(indexCourse, 1);
-         }
+         } else {
+            throw new HttpException('Nenhum curso encontrado para o id: ' + id, HttpStatus.NOT_FOUND);
+        }  
         return 'Excluido o curso: ' + id;
     }
 
