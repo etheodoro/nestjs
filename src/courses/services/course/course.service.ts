@@ -29,7 +29,7 @@ export class CourseService {
 
     update(id: string, courseDTO: any) {
         const indexCourse = this.courses.findIndex((c: Course) => c.id === Number(id));
-        if (indexCourse > 0) {
+        if (indexCourse >= 0) {
             this.courses[indexCourse] = courseDTO;
         } else {
             throw new HttpException('Nenhum curso encontrado para o id: ' + id, HttpStatus.NOT_FOUND);
@@ -38,7 +38,7 @@ export class CourseService {
 
     remove(id: string) {
         const indexCourse = this.courses.findIndex((c: Course) => c.id === Number(id));
-         if (indexCourse > 0) {
+         if (indexCourse >= 0) {
             this.courses.splice(indexCourse, 1);
          } else {
             throw new HttpException('Nenhum curso encontrado para o id: ' + id, HttpStatus.NOT_FOUND);
