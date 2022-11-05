@@ -22,15 +22,15 @@ export class CourseService {
         return this.courses;
     }
 
-    create(courseDTO: any) {
-        this.courses.push(courseDTO);
-        return this.courses;
+    create(createCourseDto: any) {
+        this.courses.push(createCourseDto);
+        return createCourseDto;
     }
 
-    update(id: string, courseDTO: any) {
+    update(id: string, updateCourseDto: any) {
         const indexCourse = this.courses.findIndex((c: Course) => c.id === Number(id));
         if (indexCourse >= 0) {
-            this.courses[indexCourse] = courseDTO;
+            this.courses[indexCourse] = updateCourseDto;
         } else {
             throw new HttpException('Nenhum curso encontrado para o id: ' + id, HttpStatus.NOT_FOUND);
         }        
