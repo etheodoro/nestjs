@@ -9,9 +9,9 @@ export class CourseController {
 
     constructor(private readonly courseService: CourseService){}
 
-    @Get('list')
-    findAll(@Res() reponse) {      
-        return reponse.status(200).send(this.courseService.findAll());        
+    @Get()
+    findAll() {      
+        return this.courseService.findAll();        
     }
 
     @Get(':id')
@@ -32,6 +32,6 @@ export class CourseController {
 
     @Delete(':id')
     remove(@Param('id') id: string) {
-        this.courseService.remove(id);
+        return this.courseService.remove(id);
     }
 }

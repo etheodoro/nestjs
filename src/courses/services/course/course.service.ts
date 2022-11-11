@@ -1,4 +1,4 @@
-import { BadRequestException, HttpException, HttpStatus, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCoursesDto } from 'src/courses/dto/create-courses.dto/create-courses.dto';
 import { UpdateCoursesDto } from 'src/courses/dto/update-courses.dto/update-courses.dto';
@@ -14,7 +14,12 @@ export class CourseService {
     ) {}
 
     findAll(){
-        return this.courseRepository.find();
+        const courses = this.courseRepository.find({
+            order: {
+                id: "ASC",
+            },
+        });
+        return courses;
     }
 
     findOne(id: string){
@@ -52,8 +57,7 @@ export class CourseService {
         const course = await this.courseRepository.findOne({
             where: {
                 "id": + id,
-            },
-            lock: { mode: "optimistic", version: 1 },
+            }
         });
         
         if (!course) {
