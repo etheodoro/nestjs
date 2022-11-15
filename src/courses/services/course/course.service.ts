@@ -19,6 +19,7 @@ export class CourseService {
 
     findAll(){
         const courses = this.courseRepository.find({
+            relations: ['tags'],
             order: {
                 id: "ASC",
             },
@@ -28,10 +29,10 @@ export class CourseService {
 
     findOne(id: string){
         const course = this.courseRepository.findOne({
+            relations: ['tags'],
             where: {
                 id: + id,
             },
-            lock: { mode: "optimistic", version: 1 },
         });
         if (!course) {
             throw new NotFoundException('Nenhum curso encontrado para o id: ' + id);
