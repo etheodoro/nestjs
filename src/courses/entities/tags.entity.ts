@@ -14,3 +14,5 @@ export class TagEntity {
     courses: CourseEntity[]
 
 }
+
+export default TagEntity;

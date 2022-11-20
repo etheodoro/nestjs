@@ -1,18 +1,28 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { type } from 'os';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CoursesModule } from './courses/courses.module';
 
+const configService = new ConfigService();
+
+
 @Module({
-  imports: [CoursesModule, TypeOrmModule.forRoot({
+  imports: [CoursesModule,
+    ConfigModule.forRoot({
+      envFilePath: 'course.env',
+      isGlobal: true,
+    }), 
+    TypeOrmModule.forRoot({
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'dev',
-    password: '1234',
-    database: 'course_nestjs',
+    host: configService.get('TYPEORM_HOST'),
+    port: configService.get('TYPEORM_PORT'),
+    username: configService.get('TYPEORM_USERNAME'),
+    password: configService.get(''),
+    database: configService.get('TYPEORM_DATABASE'),
     autoLoadEntities: true,
     synchronize: true,
   })
