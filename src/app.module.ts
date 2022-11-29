@@ -23,7 +23,7 @@ const configService = new ConfigService();
     password: configService.get("TYPEORM_PASSWORD"),
     database: configService.get("TYPEORM_DATABASE"),
     autoLoadEntities: true,
-    synchronize: true,
+    synchronize: false,
   })
 ],
   controllers: [AppController],
