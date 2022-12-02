@@ -4,6 +4,7 @@ export class CreateTagsTable1669769572274 implements MigrationInterface {
     name = 'CreateTagsTable1669769572274'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        
         await queryRunner.createTable(
             new Table(
             {

@@ -3,6 +3,7 @@ import { Column, MigrationInterface, QueryRunner, Table } from "typeorm"
 export class CreateCourseTable1669686885327 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+
         await queryRunner.createTable(
             new Table(
             {
@@ -14,12 +15,12 @@ export class CreateCourseTable1669686885327 implements MigrationInterface {
                         isPrimary: true,
                     },
                     {
-                    name: 'name',
-                    type: 'varchar',      
+                        name: 'name',
+                        type: 'varchar',      
                     },
                     {
                         name: 'description',
-                        type: 'timestamp',
+                        type: 'varchar',
                     },
                     {
                         name: 'created_at',

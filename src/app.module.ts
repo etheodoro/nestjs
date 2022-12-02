@@ -22,7 +22,8 @@ const configService = new ConfigService();
     username: configService.get("TYPEORM_USERNAME"),
     password: configService.get("TYPEORM_PASSWORD"),
     database: configService.get("TYPEORM_DATABASE"),
-    autoLoadEntities: true,
+    entities: [__dirname + '/**/*.entity.js'],
+    autoLoadEntities: false,
     synchronize: false,
   })
 ],
