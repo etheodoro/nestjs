@@ -35,7 +35,7 @@ export class CourseService {
             },
         });
         if (!course) {
-            throw new NotFoundException('Nenhum curso encontrado para o id: ' + id);
+            throw new NotFoundException(`Nenhum curso encontrado para o id ${id}`);
         }
         return course;
     }
